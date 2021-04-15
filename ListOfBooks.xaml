@@ -1,0 +1,107 @@
+﻿<Window x:Class="Library.ListOfBooks"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Library"
+        mc:Ignorable="d"
+        Title="Библиотека" Height="450" Width="850" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#FFE2E7E9">
+        <Frame Content="" Margin="15,146,15,15" Background="White">
+            <Frame.Template>
+                <ControlTemplate>
+                    <Border CornerRadius="15" Background="White">
+                    </Border>
+                </ControlTemplate>
+            </Frame.Template>
+        </Frame>
+
+        <Button Content="Поиск книг" Margin="616,95,15,0" Style ="{StaticResource ResourceKey=CustomDarkButton}" FontFamily="Verdana" FontSize="15" Click="Button_Click" Height="37" VerticalAlignment="Top" FontWeight="Bold">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="17.90761689336" Direction="1000" Color="#0500284F" Opacity="0.25" ShadowDepth="10"/>
+            </Button.Effect>
+        </Button>
+
+        <Button Content="Очистить" Margin="468,95,250,0" Style ="{StaticResource ResourceKey=CustomDarkButton}" FontFamily="Verdana" FontSize="15" Click="Btn_Clear" Height="37" VerticalAlignment="Top" FontWeight="Bold">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="17.90761689336" Direction="1000" Color="#0500284F" Opacity="0.25" ShadowDepth="10"/>
+            </Button.Effect>
+        </Button>
+
+
+        <Label Content="Список книг" HorizontalAlignment="Left" Margin="28,110,0,0" VerticalAlignment="Top" FontSize="15" FontFamily="Times New Roman" FontWeight="Bold"/>
+        
+
+        <Border Background="#FFE2E7E9" BorderBrush="Silver" BorderThickness="1" CornerRadius="9" Margin="659,10,10,370">
+            <Button Content="Выход"   FontFamily="Segoe UI Black" FontSize="14" Click="Button_Click_1" Style ="{StaticResource ResourceKey=CustomGrayButton}" Margin="0,0,0,0"  />
+        </Border>
+        <Label x:Name="NDOL" x:FieldModifier="public" Content="Имя" HorizontalAlignment="Left" Margin="90,6,0,0" VerticalAlignment="Top" FontSize="13" FontFamily="Times New Roman" FontWeight="Bold"/>
+
+        <Frame Content="Frame" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="140" Margin="90,31,0,0" Background="#FF0688F5">
+            <Frame.Template>
+                <ControlTemplate>
+                    <Border CornerRadius="7" Padding="30, 0, 0, 0" BorderThickness="0" Background="#FF4796E4">
+                    </Border>
+                </ControlTemplate>
+            </Frame.Template>
+        </Frame>
+        <Label x:Name="TDOL" x:FieldModifier="public"  Content="Должность" Margin="90,29,0,0"  FontSize="10" FontFamily="Verdana" Foreground="White" FontWeight="Bold" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140"/>
+
+        <Ellipse Height="70" Width="70" Margin="15,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Ellipse.Fill>
+                <ImageBrush x:Name="Photo" ImageSource="https://i.pinimg.com/originals/85/7b/4e/857b4e8cce8accb357e4afc37361e90c.jpg" TileMode="Tile" Stretch="UniformToFill"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <DataGrid Background="White" x:FieldModifier="public" ScrollViewer.CanContentScroll="False" CanUserAddRows="False" HeadersVisibility = "None"  ItemsSource="{Binding Path=LoadDataBinding}" CanUserResizeRows="False" HorizontalGridLinesBrush="White" VerticalGridLinesBrush="White" BorderBrush="White" GridLinesVisibility="Horizontal" FontFamily="Lucida Fax" FontSize="14" FontWeight="Bold" x:Name="datagrid" Margin="28,172,28,15" AutoGenerateColumns="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0,50,0,0"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.Columns >
+                <DataGridTemplateColumn Header="MyImage" Width="140" >
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate >
+                            <Image Source="{Binding Photo}" Width="120" Height="140"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding NameBook}" Header="NameBook" Width="200" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Year}" Header="Year" Width="100" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Author}" Header="Author" Width="120" IsReadOnly="True" />
+                <DataGridTemplateColumn Width="110">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Подробнее" Name="BtnEdit" Click="Btn_Full" VerticalAlignment="Bottom" Width="100" Height="40" Style ="{StaticResource ResourceKey=CustomDarkButton}"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Удалить" Name="BtnDell" Click="Btn_Dell" VerticalAlignment="Bottom" Width="80" Height="40" Style ="{StaticResource ResourceKey=CustomRedButton}"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Фото" HorizontalAlignment="Left" Margin="28,145,0,0" VerticalAlignment="Top" FontSize="15" FontFamily="Times New Roman" FontWeight="Bold" RenderTransformOrigin="0.056,0.389"/>
+        <Label Content="Название книги" HorizontalAlignment="Left" Margin="170,145,0,0" VerticalAlignment="Top" FontSize="15" FontFamily="Times New Roman" FontWeight="Bold"/>
+        <Label Content="Год выпуска" HorizontalAlignment="Left" Margin="368,145,0,0" VerticalAlignment="Top" FontSize="15" FontFamily="Times New Roman" FontWeight="Bold"/>
+        <Label Content="Автор" HorizontalAlignment="Left" Margin="468,146,0,0" VerticalAlignment="Top" FontSize="15" FontFamily="Times New Roman" FontWeight="Bold"/>
+        <Label Content="Книг в списке -" Name="ListColl" HorizontalAlignment="Left" Margin="170,110,0,0" VerticalAlignment="Top" FontSize="15" FontFamily="Times New Roman" FontWeight="Bold" Foreground="#FF838383"/>
+
+    </Grid>
+</Window>
